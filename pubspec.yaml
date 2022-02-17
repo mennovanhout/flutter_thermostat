@@ -2,6 +2,8 @@ name: thermostat
 description: Thermostat widget
 
 version: 1.0.0+1
+author: Dmitry Vasilyev <kelegorm1@gmail.com>
+homepage: https://github.com/kelegorm/thermostat
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
