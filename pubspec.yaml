@@ -1,8 +1,7 @@
 name: thermostat
-description: Thermostat widget
+description: Thermostat widget for Flutter projects.
 
 version: 1.0.0+1
-author: Dmitry Vasilyev <kelegorm1@gmail.com>
 homepage: https://github.com/kelegorm/thermostat
 
 environment:
