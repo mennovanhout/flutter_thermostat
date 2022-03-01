@@ -2,13 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:thermostat/src/thermostat.dart' as src;
 
 class Thermostat extends StatelessWidget {
+
+  /// Current value to display in a middle.
+  ///
+  /// That could be current temperature or set point.
   final double curVal;
 
+
+  /// Minimal value for the set temperature slider.
   final double minVal;
 
+  /// Max value for the set temperature slider.
   final double maxVal;
 
+  /// Diameter of outer circle.
   final double size;
+
+  /// Is called when user released
+  final void Function(double newValue)? onChanged;
 
   final ThermostatThemeType themeType;
 
@@ -22,6 +33,7 @@ class Thermostat extends StatelessWidget {
     required this.curVal,
     required this.minVal,
     required this.maxVal,
+    this.onChanged,
     this.size = 300,
     this.themeType = ThermostatThemeType.light,
     this.formatNum,
@@ -40,6 +52,7 @@ class Thermostat extends StatelessWidget {
         maxValue: maxVal,
         minValue: minVal,
         initialValue: curVal,
+        onValueChanged: _onValueChangedHandler,
         // modeIcon: Icon(
         //   Icons.ac_unit,
         //   color: theme.iconColor,
@@ -66,6 +79,10 @@ class Thermostat extends StatelessWidget {
 
   static String _defaultNumFormatting(double val) {
     return val.toStringAsFixed(1);
+  }
+
+  void _onValueChangedHandler(double value) {
+    onChanged?.call(value);
   }
 }
 
