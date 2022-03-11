@@ -42,12 +42,13 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Expanded(
                   child: Thermostat(
                     maxVal: 100,
                     minVal: 0,
                     curVal: 26,
+                    setPoint: 22,
                   ),
                 ),
               ],

@@ -14,6 +14,10 @@ double convertRadiusToSigma(double radius) {
 }
 
 
+/// Widget to display current temperature and control temperature set point.
+///
+/// Current value is current temperature. Set point is value where current
+/// temperature should be.
 class Thermostat extends StatefulWidget {
   final Color glowColor;
   final Color tickColor;
@@ -21,17 +25,39 @@ class Thermostat extends StatefulWidget {
   final Color dividerColor;
   final Color turnOnColor;
   final bool turnOn;
+
   /// Icon will be placed in 32x32 box.
   final Widget? modeIcon;
+
+  /// Min value for set point.
   final double minValue;
+
+  /// Max val for set point.
   final double maxValue;
-  final double initialValue;
+
+  /// Current temperature value.
+  final double currentValue;
+
+  /// Initial set point value.
+  ///
+  /// That will second row with number. And slider will have position
+  /// accordingly to that value until the user starts drag it.
+  final double initialSetPoint;
+
+  /// When set point was changed.
+  ///
+  /// It happens after user released slider.
   final ValueChanged<double>? onValueChanged;
+
   final TextStyle? textStyle;
+
   final double radius;
 
   /// Used to format [curValue].
-  final String Function(double val) formatNum;
+  final String Function(double val) formatCurVal;
+
+  /// Used to format set point value.
+  final String Function(double val) formatSetPoint;
 
 
   const Thermostat({
@@ -39,9 +65,11 @@ class Thermostat extends StatefulWidget {
     required this.turnOn,
     required this.minValue,
     required this.maxValue,
-    required this.initialValue,
+    required this.currentValue,
+    required this.initialSetPoint,
     required this.radius,
-    required this.formatNum,
+    required this.formatCurVal,
+    required this.formatSetPoint,
     this.modeIcon,
     this.glowColor = const Color(0xFF3F5BFA),
     this.tickColor = const Color(0xFFD5D9F0),
@@ -66,23 +94,18 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   late final AnimationController _glowController;
 
   late double _angle;
+
   late double _value;
 
   @override
   void initState() {
-    _value = widget.initialValue;
+    _value = widget.initialSetPoint;
 
-    if (widget.initialValue == widget.minValue) {
-      _angle = maxRingRad;
-    } else if (widget.initialValue == widget.maxValue) {
-      _angle = minRingRad;
-    } else {
-      final normalizedInitialValue = (widget.initialValue - widget.minValue) /
-          (widget.maxValue - widget.minValue);
-      final initialAngle = toRadians * normalizedInitialValue - deg90ToRad;
-      final normalizedAngle = normalizeBetweenZeroAndTwoPi(initialAngle);
-      _angle = _clampAngleValue(normalizedAngle);
-    }
+    _angle = _calcInitialAngle(
+      minValue: widget.minValue,
+      value: widget.initialSetPoint,
+      maxValue: widget.maxValue,
+    );
 
     _glowController = AnimationController(
       duration: const Duration(milliseconds: 300),
@@ -134,12 +157,12 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
 
             if (widget.turnOn) Positioned(
               top: halfWidth - 4.0,
-              right: halfWidth - 55.0,
+              right: halfWidth - 60.0,
               child: _buildLed(),
             ),
 
             Center(
-              child: _buildCurValText(context),
+              child: _buildTextWidgets(context),
             ),
 
             _buildRing(size),
@@ -194,15 +217,27 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
     );
   }
 
-  Text _buildCurValText(BuildContext context) {
-    return Text(
-              _formatValue(_value),
-              style: widget.textStyle ?? Theme.of(context).textTheme.headline4,//display1,
-            );
-  }
+  Widget _buildTextWidgets(BuildContext context) {
+    final curValStyle = widget.textStyle ?? Theme.of(context).textTheme.headline4;
 
-  String _formatValue(double value) {
-    return widget.formatNum(value);
+    final spStyle = curValStyle!.copyWith(
+      fontSize: curValStyle.fontSize! * 0.65,
+    );
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          widget.formatCurVal(widget.currentValue),
+          style: curValStyle,
+        ),
+        const SizedBox(height: 3,),
+        Text(
+          widget.formatSetPoint(_value),
+          style: spStyle,
+        ),
+      ],
+    );
   }
 
   ///
@@ -268,7 +303,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   }
 
   ///
-  double _clampAngleValue(double angle) {
+  static double _clampAngleValue(double angle) {
     double clampedAngle = angle;
     if (angle > minRingRad && angle < midRingRad) {
       clampedAngle = minRingRad;
@@ -276,6 +311,28 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
       clampedAngle = maxRingRad;
     }
     return clampedAngle;
+  }
+
+  /// Calculates angle for slider's drawer.
+  static double _calcInitialAngle({
+    required double minValue,
+    required double maxValue,
+    required double value,
+  }) {
+    if (value == minValue) {
+      return maxRingRad;
+
+    } else if (value == maxValue) {
+      return minRingRad;
+
+    } else {
+      final normalizedInitialValue = (value - minValue) /
+          (maxValue - minValue);
+      final initialAngle = toRadians * normalizedInitialValue - deg90ToRad;
+      final normalizedAngle = normalizeBetweenZeroAndTwoPi(initialAngle);
+
+      return _clampAngleValue(normalizedAngle);
+    }
   }
 
   ///

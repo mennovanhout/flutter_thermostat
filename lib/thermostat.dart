@@ -3,11 +3,11 @@ import 'package:thermostat/src/thermostat.dart' as src;
 
 class Thermostat extends StatelessWidget {
 
-  /// Current value to display in a middle.
-  ///
-  /// That could be current temperature or set point.
+  /// Current temperature to display in a middle.
   final double curVal;
 
+  /// Value of temperature set point.
+  final double setPoint;
 
   /// Minimal value for the set temperature slider.
   final double minVal;
@@ -26,17 +26,24 @@ class Thermostat extends StatelessWidget {
   /// Used to format [curValue] to display it on the screen.
   ///
   /// Default implementation is [_defaultNumFormatting].
-  final String Function(double)? formatNum;
+  final String Function(double)? formatCurVal;
+
+  /// Used to format [setPoint] to display it on the screen.
+  ///
+  /// Default implementation is [_defaultNumFormatting].
+  final String Function(double)? formatSetPoint;
 
 
   const Thermostat({
     required this.curVal,
+    required this.setPoint,
     required this.minVal,
     required this.maxVal,
     this.onChanged,
     this.size = 300,
     this.themeType = ThermostatThemeType.light,
-    this.formatNum,
+    this.formatCurVal,
+    this.formatSetPoint,
     Key? key,
   })  : super(key: key);
 
@@ -51,7 +58,8 @@ class Thermostat extends StatelessWidget {
         turnOn: false,
         maxValue: maxVal,
         minValue: minVal,
-        initialValue: curVal,
+        currentValue: curVal,
+        initialSetPoint: setPoint,
         onValueChanged: _onValueChangedHandler,
         // modeIcon: Icon(
         //   Icons.ac_unit,
@@ -62,7 +70,8 @@ class Thermostat extends StatelessWidget {
         thumbColor: theme.thumbColor,
         dividerColor: theme.dividerColor,
         turnOnColor: theme.turnOnColor,
-        formatNum: formatNum ?? _defaultNumFormatting,
+        formatCurVal: formatCurVal ?? _defaultNumFormatting,
+        formatSetPoint: formatSetPoint ?? _defaultNumFormatting,
       ),
     );
   }

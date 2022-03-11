@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+  - Now it's two values: current temperature and set point
+  - Added second number formatter for set value
+
 ## 1.0.0+2
 
   - Added onChange callback
