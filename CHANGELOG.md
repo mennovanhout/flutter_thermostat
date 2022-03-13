@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0+1
+
+  - Slider ignores new setValues while user use it
+
 ## 1.1.0
 
   - Now it's two values: current temperature and set point

@@ -97,6 +97,8 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
 
   late double _value;
 
+  bool _drawing = false;
+
   @override
   void initState() {
     _value = widget.initialSetPoint;
@@ -114,6 +116,22 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
     _glowController.addListener(_handleChange);
 
     super.initState();
+  }
+
+
+  @override
+  void didUpdateWidget(Thermostat oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (_drawing == false) {
+      _value = widget.initialSetPoint;
+
+      _angle = _calcInitialAngle(
+        minValue: widget.minValue,
+        value: widget.initialSetPoint,
+        maxValue: widget.maxValue,
+      );
+    }
   }
 
   @override
@@ -258,6 +276,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
 
   void _onPanStart(DragStartDetails details) {
     // final polarCoord = _polarCoordFromGlobalOffset(details.globalPosition);
+    _drawing = true;
     _glowRing();
   }
 
@@ -287,6 +306,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   ///
   void _onPanEnd(DragEndDetails details) {
     _dimRing();
+    _drawing = false;
     if (widget.onValueChanged != null) {
       widget.onValueChanged!(_value);
     }
