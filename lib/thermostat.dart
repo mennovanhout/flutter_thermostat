@@ -33,6 +33,8 @@ class Thermostat extends StatelessWidget {
   /// Default implementation is [_defaultNumFormatting].
   final String Function(double)? formatSetPoint;
 
+  final Color? glowColor;
+
 
   const Thermostat({
     required this.curVal,
@@ -44,6 +46,7 @@ class Thermostat extends StatelessWidget {
     this.themeType = ThermostatThemeType.light,
     this.formatCurVal,
     this.formatSetPoint,
+    this.glowColor,
     Key? key,
   })  : super(key: key);
 
@@ -65,7 +68,7 @@ class Thermostat extends StatelessWidget {
         //   Icons.ac_unit,
         //   color: theme.iconColor,
         // ),
-        glowColor: theme.glowColor,
+        glowColor: glowColor ?? theme.glowColor,
         tickColor: theme.tickColor,
         thumbColor: theme.thumbColor,
         dividerColor: theme.dividerColor,

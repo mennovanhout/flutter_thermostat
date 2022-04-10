@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+  - Added glowColor public property
+
 ## 1.1.0+1
 
   - Slider ignores new setValues while user use it
