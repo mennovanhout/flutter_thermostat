@@ -1,7 +1,7 @@
 # Thermostat
 Widget is a Thermostat that help you to choose temperature from a given range.
 
-This is a fork from ![old repo](https://github.com/mahmed8003/thermostat). I have updated it a bit, removed old stuff. Now it's just widget with circle to change number.
+This is a fork from ![old repo](https://github.com/mahmed8003/thermostat). I have updated it a bit, removed old stuff. Now it's just widget with circle to change number. Feel free to submit requests or file issues.
 
 ![](screenshots/preview_01.gif)
 

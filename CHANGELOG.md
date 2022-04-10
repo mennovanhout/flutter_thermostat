@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2
+
+  - Invented theme
+
 ## 1.1.1
 
   - Added glowColor public property
