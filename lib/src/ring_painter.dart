@@ -7,11 +7,13 @@ import 'package:thermostat/src/thermostat.dart';
 class RingPainter extends CustomPainter {
   final Color dividerColor;
   final Color glowColor;
+  final Color? ringColor;
   final double glowness;
 
   RingPainter({
     required this.dividerColor,
     required this.glowColor,
+    required this.ringColor,
     required this.glowness,
   });
 
@@ -59,6 +61,19 @@ class RingPainter extends CustomPainter {
     canvas.saveLayer(rect, Paint());
     canvas.drawCircle(centerOffset, outerRingRadius, outerGlowPaint);
     canvas.drawCircle(centerOffset, innerRingRadius, paint);
+
+    // Drawing main ring (or not drawing, it will be transparent).
+    if (ringColor != null) {
+      final double centerRadius = (outerRingRadius + innerRingRadius) * 0.5;
+      final mainRingWidth = outerRingRadius - innerRingRadius;
+
+      final bigRingPainter = Paint()
+        ..color = ringColor!
+        ..strokeWidth = mainRingWidth
+        ..style = PaintingStyle.stroke;
+
+      canvas.drawCircle(centerOffset, centerRadius, bigRingPainter);
+    }
 
     //
     canvas.translate(center, center);

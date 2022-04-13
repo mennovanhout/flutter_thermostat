@@ -36,7 +36,7 @@ class Thermostat extends StatelessWidget {
   /// Default implementation is [_defaultNumFormatting].
   final String Function(double)? formatSetPoint;
 
-  final Color? glowColor;
+  final ThermostatTheme? theme;
 
 
   const Thermostat({
@@ -49,14 +49,14 @@ class Thermostat extends StatelessWidget {
     this.themeType = ThermostatThemeType.light,
     this.formatCurVal,
     this.formatSetPoint,
-    this.glowColor,
+    this.theme,
     Key? key,
   })  : super(key: key);
 
   
   @override
   Widget build(BuildContext context) {
-    final theme = _getThemeByType(themeType);
+    final theme = this.theme ?? _getThemeByType(themeType);
 
     return Center(
       child: src.Thermostat(
@@ -71,11 +71,12 @@ class Thermostat extends StatelessWidget {
         //   Icons.ac_unit,
         //   color: theme.iconColor,
         // ),
-        glowColor: glowColor ?? theme.glowColor,
+        glowColor: theme.glowColor,
         tickColor: theme.tickColor,
         thumbColor: theme.thumbColor,
         dividerColor: theme.dividerColor,
-        turnOnColor: theme.turnOnColor,
+        ringColor: theme.ringColor,
+        // turnOnColor: theme.turnOnColor,
         formatCurVal: formatCurVal ?? _defaultNumFormatting,
         formatSetPoint: formatSetPoint ?? _defaultNumFormatting,
       ),

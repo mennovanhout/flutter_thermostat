@@ -25,6 +25,7 @@ class Thermostat extends StatefulWidget {
   final Color dividerColor;
   final Color turnOnColor;
   final bool turnOn;
+  final Color? ringColor;
 
   /// Icon will be placed in 32x32 box.
   final Widget? modeIcon;
@@ -78,6 +79,7 @@ class Thermostat extends StatefulWidget {
     this.turnOnColor = const Color(0xFF66f475),
     this.onValueChanged,
     this.textStyle,
+    this.ringColor,
   }) : super(key: key);
 
   @override
@@ -211,6 +213,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
         dividerColor: widget.dividerColor,
         glowColor: widget.glowColor,
         glowness: _glowController.value,
+        ringColor: widget.ringColor,
       ),
     );
   }
