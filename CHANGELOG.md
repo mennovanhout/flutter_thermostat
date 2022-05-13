@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.4
+
+  - Added turnOn support
+
+## 1.1.3
+
+  - Added optional ring color
+
 ## 1.1.2
 
   - Invented theme

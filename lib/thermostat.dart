@@ -38,6 +38,8 @@ class Thermostat extends StatelessWidget {
 
   final ThermostatTheme? theme;
 
+  final bool turnOn;
+
 
   const Thermostat({
     required this.curVal,
@@ -50,6 +52,7 @@ class Thermostat extends StatelessWidget {
     this.formatCurVal,
     this.formatSetPoint,
     this.theme,
+    this.turnOn = false,
     Key? key,
   })  : super(key: key);
 
@@ -61,7 +64,7 @@ class Thermostat extends StatelessWidget {
     return Center(
       child: src.Thermostat(
         radius: size / 2,
-        turnOn: false,
+        turnOn: turnOn,
         maxValue: maxVal,
         minValue: minVal,
         currentValue: curVal,
@@ -76,7 +79,7 @@ class Thermostat extends StatelessWidget {
         thumbColor: theme.thumbColor,
         dividerColor: theme.dividerColor,
         ringColor: theme.ringColor,
-        // turnOnColor: theme.turnOnColor,
+        turnOnColor: theme.turnOnColor,
         formatCurVal: formatCurVal ?? _defaultNumFormatting,
         formatSetPoint: formatSetPoint ?? _defaultNumFormatting,
       ),

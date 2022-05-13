@@ -18,8 +18,8 @@ class ThermostatTheme {
   /// If null it will not be painted.
   final Color? ringColor;
 
-  /// Little led, hidden so far. Don use it now.
-  // final Color turnOnColor;
+  /// Little led.
+  final Color turnOnColor;
 
   /// There is no icon so far.
   // final Color iconColor;
@@ -30,7 +30,7 @@ class ThermostatTheme {
     this.thumbColor = const Color(0xFFF3F4FA),
     this.dividerColor = const Color(0xFF3F5BFA),
     this.ringColor = null,
-    // this.turnOnColor = const Color(0xFF66f475),
+    this.turnOnColor = const Color(0xFF66f475),
     // this.iconColor = const Color(0xFF3CAEF4),
   });
 
@@ -42,7 +42,7 @@ class ThermostatTheme {
     this.thumbColor = const Color(0xFF74b0ac),
     this.dividerColor = const Color(0xFF8a9d9b),
     this.ringColor = null,
-    // this.turnOnColor = const Color(0xFF66f475),
+    this.turnOnColor = const Color(0xFF66f475),
     // this.iconColor = const Color(0xFF74b0ac),
   });
 
@@ -52,7 +52,7 @@ class ThermostatTheme {
     required this.thumbColor,
     required this.dividerColor,
     this.ringColor = null,
-    // required this.turnOnColor,
+    required this.turnOnColor,
     // required this.iconColor
   });
 
@@ -73,7 +73,7 @@ class ThermostatTheme {
       thumbColor: thumbColor ?? this.thumbColor,
       dividerColor: dividerColor ?? this.dividerColor,
       ringColor: !removeRingColor ? ringColor ?? this.ringColor : null,
-      // turnOnColor: turnOnColor ?? this.turnOnColor,
+      turnOnColor: turnOnColor ?? this.turnOnColor,
       // iconColor: iconColor ?? this.iconColor,
     );
   }
