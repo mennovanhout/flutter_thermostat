@@ -19,6 +19,7 @@ double convertRadiusToSigma(double radius) {
 /// Current value is current temperature. Set point is value where current
 /// temperature should be.
 class Thermostat extends StatefulWidget {
+  final SetPointMode mode;
   final Color glowColor;
   final Color tickColor;
   final Color thumbColor;
@@ -63,6 +64,7 @@ class Thermostat extends StatefulWidget {
 
   const Thermostat({
     Key? key,
+    required this.mode,
     required this.turnOn,
     required this.minValue,
     required this.maxValue,
@@ -160,7 +162,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
               onPanStart: _onPanStart,
               onPanUpdate: _onPanUpdate,
               onPanEnd: _onPanEnd,
-            ), //ctor
+            ),
             (_) {}, // initializer
           ),
         },
@@ -187,7 +189,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
 
             _buildRing(size),
 
-            _buildTickThumb(size),
+            if (widget.mode != SetPointMode.unwritable) _buildTickThumb(size),
           ],
         ),
       ),
@@ -253,6 +255,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
           style: curValStyle,
         ),
         const SizedBox(height: 3,),
+        if (widget.mode != SetPointMode.error)
         Text(
           widget.formatSetPoint(_value),
           style: spStyle,
@@ -264,7 +267,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   ///
   void _handleChange() {
     setState(() {
-      // The listenable's state is our build state, and it changed already.
+        // The listenable's state is our build state, and it changed already.
     });
   }
 
@@ -316,7 +319,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   }
 
   ///
-  void _glowRing() {
+  void _glowRing() { //todo?
     _glowController.forward();
   }
 
@@ -403,4 +406,11 @@ class PolarCoord {
     return 'Polar Coord: ${radius.toStringAsFixed(2)}'
         ' at ${(angle / toRadians * 360).toStringAsFixed(2)}°';
   }
+}
+
+/// Mode of the availability of temperature set point.
+enum SetPointMode {
+  allGood,
+  unwritable,
+  error,
 }
