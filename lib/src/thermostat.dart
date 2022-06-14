@@ -5,6 +5,9 @@ import 'package:thermostat/src/thermostat_gesture_detector.dart';
 import 'package:thermostat/src/plane_angle_radians.dart';
 import 'package:thermostat/src/ring_painter.dart';
 import 'package:thermostat/src/tick_thumb_painter.dart';
+import 'package:thermostat/src/set_point_mode.dart';
+
+export 'package:thermostat/src/set_point_mode.dart';
 
 
 const double toRadians = 2.0 * pi;
@@ -19,7 +22,7 @@ double convertRadiusToSigma(double radius) {
 /// Current value is current temperature. Set point is value where current
 /// temperature should be.
 class Thermostat extends StatefulWidget {
-  final SetPointMode mode;
+  final SetPointMode setPointMode;
   final Color glowColor;
   final Color tickColor;
   final Color thumbColor;
@@ -64,7 +67,7 @@ class Thermostat extends StatefulWidget {
 
   const Thermostat({
     Key? key,
-    required this.mode,
+    required this.setPointMode,
     required this.turnOn,
     required this.minValue,
     required this.maxValue,
@@ -189,7 +192,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
 
             _buildRing(size),
 
-            if (widget.mode == SetPointMode.allGood) _buildTickThumb(size),
+            if (widget.setPointMode == SetPointMode.displayAndEdit) _buildTickThumb(size),
           ],
         ),
       ),
@@ -255,8 +258,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
           style: curValStyle,
         ),
         const SizedBox(height: 3,),
-        if (widget.mode != SetPointMode.error)
-        Text(
+        if (widget.setPointMode != SetPointMode.notDisplay) Text(
           widget.formatSetPoint(_value),
           style: spStyle,
         ),
@@ -319,7 +321,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   }
 
   ///
-  void _glowRing() { //todo?
+  void _glowRing() {
     _glowController.forward();
   }
 
@@ -406,11 +408,4 @@ class PolarCoord {
     return 'Polar Coord: ${radius.toStringAsFixed(2)}'
         ' at ${(angle / toRadians * 360).toStringAsFixed(2)}°';
   }
-}
-
-/// Mode of the availability of temperature set point.
-enum SetPointMode {
-  allGood,
-  unwritable,
-  error,
 }
