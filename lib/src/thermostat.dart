@@ -189,7 +189,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
 
             _buildRing(size),
 
-            if (widget.mode != SetPointMode.unwritable) _buildTickThumb(size),
+            if (widget.mode == SetPointMode.allGood) _buildTickThumb(size),
           ],
         ),
       ),
