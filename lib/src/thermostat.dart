@@ -5,6 +5,9 @@ import 'package:thermostat/src/thermostat_gesture_detector.dart';
 import 'package:thermostat/src/plane_angle_radians.dart';
 import 'package:thermostat/src/ring_painter.dart';
 import 'package:thermostat/src/tick_thumb_painter.dart';
+import 'package:thermostat/src/set_point_mode.dart';
+
+export 'package:thermostat/src/set_point_mode.dart';
 
 
 const double toRadians = 2.0 * pi;
@@ -19,6 +22,7 @@ double convertRadiusToSigma(double radius) {
 /// Current value is current temperature. Set point is value where current
 /// temperature should be.
 class Thermostat extends StatefulWidget {
+  final SetPointMode setPointMode;
   final Color glowColor;
   final Color tickColor;
   final Color thumbColor;
@@ -63,6 +67,7 @@ class Thermostat extends StatefulWidget {
 
   const Thermostat({
     Key? key,
+    required this.setPointMode,
     required this.turnOn,
     required this.minValue,
     required this.maxValue,
@@ -160,7 +165,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
               onPanStart: _onPanStart,
               onPanUpdate: _onPanUpdate,
               onPanEnd: _onPanEnd,
-            ), //ctor
+            ),
             (_) {}, // initializer
           ),
         },
@@ -187,7 +192,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
 
             _buildRing(size),
 
-            _buildTickThumb(size),
+            if (widget.setPointMode == SetPointMode.displayAndEdit) _buildTickThumb(size),
           ],
         ),
       ),
@@ -253,7 +258,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
           style: curValStyle,
         ),
         const SizedBox(height: 3,),
-        Text(
+        if (widget.setPointMode != SetPointMode.notDisplay) Text(
           widget.formatSetPoint(_value),
           style: spStyle,
         ),
@@ -264,7 +269,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   ///
   void _handleChange() {
     setState(() {
-      // The listenable's state is our build state, and it changed already.
+        // The listenable's state is our build state, and it changed already.
     });
   }
 

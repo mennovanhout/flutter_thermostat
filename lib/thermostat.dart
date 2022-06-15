@@ -3,8 +3,12 @@ import 'package:thermostat/src/thermostat.dart' as src;
 import 'package:thermostat/src/thermostat_theme.dart';
 
 export 'package:thermostat/src/thermostat_theme.dart';
+export 'package:thermostat/src/set_point_mode.dart';
 
 class Thermostat extends StatelessWidget {
+
+  /// Stores the availability of temperature set point.
+  final src.SetPointMode setPointMode;
 
   /// Current temperature to display in a middle.
   final double curVal;
@@ -40,8 +44,8 @@ class Thermostat extends StatelessWidget {
 
   final bool turnOn;
 
-
   const Thermostat({
+    required this.setPointMode,
     required this.curVal,
     required this.setPoint,
     required this.minVal,
@@ -56,13 +60,14 @@ class Thermostat extends StatelessWidget {
     Key? key,
   })  : super(key: key);
 
-  
   @override
   Widget build(BuildContext context) {
     final theme = this.theme ?? _getThemeByType(themeType);
 
-    return Center(
+    return
+      Center(
       child: src.Thermostat(
+        setPointMode: setPointMode,
         radius: size / 2,
         turnOn: turnOn,
         maxValue: maxVal,
@@ -70,10 +75,6 @@ class Thermostat extends StatelessWidget {
         currentValue: curVal,
         initialSetPoint: setPoint,
         onValueChanged: _onValueChangedHandler,
-        // modeIcon: Icon(
-        //   Icons.ac_unit,
-        //   color: theme.iconColor,
-        // ),
         glowColor: theme.glowColor,
         tickColor: theme.tickColor,
         thumbColor: theme.thumbColor,
