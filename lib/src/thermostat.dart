@@ -279,7 +279,11 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   bool _sliderHitTest(DragStartDetails details) {
     final polarCoord = _polarCoordFromGlobalOffset(details.globalPosition);
 
-    return polarCoord.radius >= (widget.radius - 62 - 15) && polarCoord.radius <= (widget.radius - 15);
+    if (widget.setPointMode == SetPointMode.displayAndEdit) {
+      return polarCoord.radius >= (widget.radius - 62 - 15) &&
+          polarCoord.radius <= (widget.radius - 15);
+    }
+    return false;
   }
 
   void _onPanStart(DragStartDetails details) {
