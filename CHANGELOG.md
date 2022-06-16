@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.5
+
+  - Made setPoint function optional
+
 ## 1.1.4
 
   - Added turnOn support

@@ -7,8 +7,6 @@ import 'package:thermostat/src/ring_painter.dart';
 import 'package:thermostat/src/tick_thumb_painter.dart';
 import 'package:thermostat/src/set_point_mode.dart';
 
-export 'package:thermostat/src/set_point_mode.dart';
-
 
 const double toRadians = 2.0 * pi;
 
@@ -269,7 +267,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   ///
   void _handleChange() {
     setState(() {
-        // The listenable's state is our build state, and it changed already.
+      // The listenable's state is our build state, and it changed already.
     });
   }
 
@@ -277,13 +275,12 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   ///
   /// We choose gesture strategy depends on that.
   bool _sliderHitTest(DragStartDetails details) {
+    if (widget.setPointMode != SetPointMode.displayAndEdit) return false;
+
     final polarCoord = _polarCoordFromGlobalOffset(details.globalPosition);
 
-    if (widget.setPointMode == SetPointMode.displayAndEdit) {
-      return polarCoord.radius >= (widget.radius - 62 - 15) &&
-          polarCoord.radius <= (widget.radius - 15);
-    }
-    return false;
+    return polarCoord.radius >= (widget.radius - 62 - 15)
+        && polarCoord.radius <= (widget.radius - 15);
   }
 
   void _onPanStart(DragStartDetails details) {

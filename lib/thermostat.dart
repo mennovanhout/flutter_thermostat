@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:thermostat/src/set_point_mode.dart';
 import 'package:thermostat/src/thermostat.dart' as src;
 import 'package:thermostat/src/thermostat_theme.dart';
 
-export 'package:thermostat/src/thermostat_theme.dart';
 export 'package:thermostat/src/set_point_mode.dart';
+export 'package:thermostat/src/thermostat_theme.dart';
+
 
 class Thermostat extends StatelessWidget {
 
   /// Stores the availability of temperature set point.
-  final src.SetPointMode setPointMode;
+  final SetPointMode setPointMode;
 
   /// Current temperature to display in a middle.
   final double curVal;
@@ -75,6 +77,10 @@ class Thermostat extends StatelessWidget {
         currentValue: curVal,
         initialSetPoint: setPoint,
         onValueChanged: _onValueChangedHandler,
+        // modeIcon: Icon(
+        //   Icons.ac_unit,
+        //   color: theme.iconColor,
+        // ),
         glowColor: theme.glowColor,
         tickColor: theme.tickColor,
         thumbColor: theme.thumbColor,
