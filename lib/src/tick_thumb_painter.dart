@@ -42,7 +42,7 @@ class TickThumbPainter extends CustomPainter {
 
     const radians = toRadians / tickCount;
     double tRadians = 0.0;
-    final curve = Curves.easeOut;
+    const curve = Curves.easeOut;
     for (int i = 0; i < tickCount; i++) {
       double lomber = 0.0;
       final diff = acos(cos(angle - tRadians));

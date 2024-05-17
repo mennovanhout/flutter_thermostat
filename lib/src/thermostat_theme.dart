@@ -29,7 +29,7 @@ class ThermostatTheme {
     this.tickColor = const Color(0xFFD5D9F0),
     this.thumbColor = const Color(0xFFF3F4FA),
     this.dividerColor = const Color(0xFF3F5BFA),
-    this.ringColor = null,
+    this.ringColor,
     this.turnOnColor = const Color(0xFF66f475),
     // this.iconColor = const Color(0xFF3CAEF4),
   });
@@ -41,7 +41,7 @@ class ThermostatTheme {
     this.tickColor = const Color(0xFF637c7a), 
     this.thumbColor = const Color(0xFF74b0ac),
     this.dividerColor = const Color(0xFF8a9d9b),
-    this.ringColor = null,
+    this.ringColor,
     this.turnOnColor = const Color(0xFF66f475),
     // this.iconColor = const Color(0xFF74b0ac),
   });
@@ -51,7 +51,7 @@ class ThermostatTheme {
     required this.tickColor,
     required this.thumbColor,
     required this.dividerColor,
-    this.ringColor = null,
+    this.ringColor,
     required this.turnOnColor,
     // required this.iconColor
   });

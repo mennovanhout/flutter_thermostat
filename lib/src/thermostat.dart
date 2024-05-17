@@ -242,7 +242,7 @@ class _ThermostatState extends State<Thermostat> with SingleTickerProviderStateM
   }
 
   Widget _buildTextWidgets(BuildContext context) {
-    final curValStyle = widget.textStyle ?? Theme.of(context).textTheme.headline4;
+    final curValStyle = widget.textStyle ?? Theme.of(context).textTheme.headlineMedium;
 
     final spStyle = curValStyle!.copyWith(
       fontSize: curValStyle.fontSize! * 0.65,

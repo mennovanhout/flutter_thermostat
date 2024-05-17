@@ -40,15 +40,16 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Container(
             color: Colors.white,
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Expanded(
                   child: Thermostat(
                     maxVal: 100,
                     minVal: 0,
                     curVal: 26,
                     setPoint: 22,
+                    setPointMode: SetPointMode.displayAndEdit,
                   ),
                 ),
               ],
@@ -58,14 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
             height: 300,
             child: Container(
               color: Colors.redAccent,
-              child: Center(child: Text('Block 1')),
+              child: const Center(child: Text('Block 1')),
             ),
           ),
           SizedBox(
             height: 300,
             child: Container(
               color: Colors.lightGreen,
-              child: Center(child: Text('Block 2')),
+              child: const Center(child: Text('Block 2')),
             ),
           ),
         ],

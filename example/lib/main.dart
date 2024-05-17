@@ -44,17 +44,18 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
+      body: const Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Expanded(
                 child: Thermostat(
                   maxVal: 78,
                   minVal: 66,
                   curVal: 68,
                   setPoint: 73,
+                  setPointMode: SetPointMode.displayAndEdit,
                 ),
               ),
             ],
